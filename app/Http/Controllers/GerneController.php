@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Gernes;
+use App\Models\Gerne;
 
-class GernesController extends Controller
+class GerneController extends Controller
 {
     //
     public function index() {

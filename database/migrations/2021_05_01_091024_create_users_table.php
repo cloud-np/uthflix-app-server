@@ -17,7 +17,8 @@ class CreateUsersTable extends Migration
             // This is equals to a UNSIGNED BIGINT with AUTO INCREMENT
             $table->id();
             $table->string('username');
-            $table->string('email');
+            $table->string('password');
+            $table->string('email')->unique();
             $table->integer('is_admin');
             $table->integer('is_producer');
             $table->timestamp('created_at')->useCurrent();
