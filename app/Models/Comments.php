@@ -5,18 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class SeriMovies extends Model
+class Comments extends Model
 {
-    protected $table = 'serimovies';
+    protected $table = 'comments';
     public $timestamps = false;
 
     protected $fillable = [
-        'name',
-        'release_date',
-        'overview',
-        'is_movie',
+        'content',
         'user_id',
-        'img_url'
+        'video_id',
+        'review',
+        'created_at',
     ];
+
     use HasFactory;
 }

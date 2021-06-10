@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateVideosGenresTable extends Migration
+class CreateSeriMoviesGenresTable extends Migration
 {
     /**
      * Run the migrations.
@@ -16,7 +16,7 @@ class CreateVideosGenresTable extends Migration
         Schema::create('videos_genres', function (Blueprint $table) {
             $table->id();
             $table->foreignId('serimovies_id')->constrained()->onDelete('cascade');
-            $table->foreignId('gerne_id')->constrained()->onDelete('cascade');
+            $table->foreignId('Genre_id')->constrained()->onDelete('cascade');
         });
     }
 

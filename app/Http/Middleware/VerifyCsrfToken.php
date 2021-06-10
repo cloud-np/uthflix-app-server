@@ -13,6 +13,12 @@ class VerifyCsrfToken extends Middleware
      */
     protected $except = [
         '/users/*',
-        // '/users/findUserByEmail'
+        '/serimovies/*',
+        '/genres/*',
+        '/videos/*',
+        '/episodes/*',
+        '/comments/*',
+        '/crew/*',
+        '/favorites/*',
     ];
 }

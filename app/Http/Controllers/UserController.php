@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Favorites;
+use App\Models\SeriMovies;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Carbon;
 
@@ -24,16 +27,51 @@ class UserController extends Controller
         else
             return json_encode(false);
     }
-    public function index() {
-        return 'Nothing to index yet';
-        // $users = User::all();
-        // return $users;
-        // $users_arr = [];
 
-        // foreach($users as $user){
-        //     array_push($users_arr, $user->toJson());
-        // }
-        // return $users_arr;
+    // Check if the same fav exists.
+    public function register_favorite(Request $req){
+        try{
+            $fav = new Favorites();
+            $fav->user_id = $req->input("user_id");
+            $fav->serimovies_id = $req->input("serimovies_id");
+            $fav->save();
+            return "OK";
+        }catch(Exception $e){
+            return $e;
+        }
+    }
+
+    public function delete_favorite(Request $req){
+        try{
+            DB::delete('delete from favorites where user_id = ? AND serimovies_id = ?',[$req->input("user_id"), $req->input("serimovies_id")]);
+            return "deleteeed";
+        }catch(Exception $e){
+            return $e;
+        }
+    }
+
+    public function find_favorite(Request $req) {
+        try{
+            $fav = Favorites::where("user_id", $req->input("user_id"))
+                        ->where("serimovies_id", $req->input("serimovies_id"))
+                        ->get();
+            return $fav;
+        }catch(Exception $e){
+            return $e;
+        }
+    }
+
+    public function user_favorites($user_id) {
+        try{
+            $favorites = Favorites::where("user_id", $user_id)->get();
+            $serimovies = [];
+            foreach($favorites as $fav){
+                array_push($serimovies, SeriMovies::find($fav->serimovies_id));
+            }
+            return $serimovies;
+        }catch(Exception $e){
+            return $e;
+        }
     }
 
     // DELETE FROM users WHERE id = ? ;
@@ -59,17 +97,16 @@ class UserController extends Controller
     public function update(Request $req){
         $user = User::find($req->input('id'));
         $valid_keys = ['email', 'password', 'username', 'isAdmin', 'isProducer'];
-        // $update_values = array();
         if ($user != NULL){
             foreach($req->all() as $key => $value){
-                if($key == 'id' || !in_array($key, $valid_keys))
+                if(!in_array($key, $valid_keys))
                     continue;
                 else
                     $user->update([$key => $value]);
             }
             $user->update(['updated_at' => now()]);
-            return json_encode(true);
-        } else return json_encode(false);
+            return "OK";
+        } else return "FAILED";
     }
 
     // The raw SQL statement could be something like that:
