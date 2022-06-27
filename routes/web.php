@@ -34,6 +34,7 @@ Route::get('/serimovies/by-name/{name}', [SeriMoviesController::class, 'serimovi
 Route::get('/serimovies/get-series', [SeriMoviesController::class, 'get_series']);
 Route::get('/serimovies/reviews/{id}', [SeriMoviesController::class, 'get_reviews']);
 Route::post('/serimovies/by-dates', [SeriMoviesController::class, 'get_by_dates']);
+Route::get('/serimovies/my-movies/{id}', [SeriMoviesController::class, 'my_serimovies']);
 // SeriMovies-Seasons
 Route::post('/serimovies/season/register', [SeriMoviesController::class, 'register_season']);
 Route::post('/serimovies/season/delete', [SeriMoviesController::class, 'delete_season']);
@@ -70,7 +71,7 @@ Route::get('/crew/by-all/{crew}', [CrewMembersController::class, 'get_by_all']);
 Route::post('/crew/delete/', [CrewMembersController::class, 'delete']);
 
 // Users
-Route::get('/users/findUserByEmail', [UserController::class, 'indexWithEmail']);
+Route::post('/users/find-user-by-email', [UserController::class, 'indexWithEmail']);
 Route::post('/users/register', [UserController::class, 'store']);
 Route::post('/users/update', [UserController::class, 'update']);
 Route::post('/users/login', [UserController::class, 'login']);

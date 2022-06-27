@@ -105,6 +105,14 @@ class SeriMoviesController extends Controller
         }
     }
     
+    public function my_serimovies($user_id){
+        try{
+            return SeriMovies::where("user_id", $user_id)->get();
+        }catch(Exception $e){
+            return $e;
+        }
+    }
+
     public function serimovies_by_name($name){
         try{
             return SeriMovies::where("name", $name)->get();

@@ -18,7 +18,7 @@ use Illuminate\Support\Carbon;
 class UserController extends Controller
 {
     public function get_users(Request $req) {
-        $user = User::find($req->input('id'));
+        $user = User::find($req->input('user_id'));
         if ($user == NULL)
             return json_encode('User not found');
 
@@ -76,12 +76,12 @@ class UserController extends Controller
 
     // DELETE FROM users WHERE id = ? ;
     public function delete(Request $req){
-        $user = User::find($req->input('id'));
-        if ($user != NULL){
-            $user->delete();
-            return json_encode(true);
-        } else
-            return json_encode(false);
+        try{
+            User::destroy($req->input("user_id"));
+            return "OK";
+        }catch(Exception $e){
+            return $e;
+        }
     }
 
     // The raw SQL statement could be something like that:
