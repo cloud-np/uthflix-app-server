@@ -14,10 +14,8 @@ yarn-error.log
 
 # Not needed atm
 tests/
-storage/
 public/
 resources/
-bootstrap/
 .env.example
 database/factories/
 database/seeders
